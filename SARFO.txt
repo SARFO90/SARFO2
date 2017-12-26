@@ -1,0 +1,19 @@
+%scaner_name SARFO
+%codes_type Code
+%ident_name Id
+%token_fields "unsigned __int128 int_val;"
+%class_members "unsigned __int128 val_;"
+%codes MUL, PLUS, MINUS, DIV, POW, SEMICOLON, ASSIGN, NUMBER
+%idents {[:latin:]|[:Latin:]|_}{[:latin:]|[:Latin:]|[:digits:]}
+%delimiters
+	"*":MUL,
+	"+":PLUS,
+	"-":MINUS,
+	"/":DIV,
+	"**":POW,
+	";":SEMICOLON,
+	":=":ASSIGN
+%numbers "val_=0; tokencode=NUMBER;":
+		 "int_val=val_;"
+%action add_digit "val_=val_*10+digit_to_int(ch);"
+					{[:digits:]$add_digit+}
